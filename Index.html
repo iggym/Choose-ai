@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Selector App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-4 text-center">LLM & Chatbot Selector</h1>
+    <div id="form" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Task Type</label>
+        <select id="taskType" class="mt-1 block w-full p-2 border rounded-md">
+          <option value="writing">Writing (e.g., essays, emails)</option>
+          <option value="coding">Coding (e.g., Python, JavaScript)</option>
+          <option value="research">Research (e.g., data analysis, summaries)</option>
+          <option value="creative">Creative (e.g., stories, art prompts)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Budget</label>
+        <select id="budget" class="mt-1 block w-full p-2 border rounded-md">
+          <option value="free">Free</option>
+          <option value="paid">Paid (Subscription or API)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Priority</label>
+        <select id="priority" class="mt-1 block w-full p-2 border rounded-md">
+          <option value="accuracy">Accuracy</option>
+          <option value="speed">Speed</option>
+          <option value="ease">Ease of Use</option>
+        </select>
+      </div>
+      <button onclick="recommendLLM()" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Get Recommendation</button>
+    </div>
+    <div id="result" class="mt-4 p-4 bg-gray-50 rounded-md hidden">
+      <h2 class="text-lg font-semibold">Recommendation</h2>
+      <p id="recommendationText"></p>
+    </div>
+  </div>
+
+  <script>
+    function recommendLLM() {
+      const taskType = document.getElementById('taskType').value;
+      const budget = document.getElementById('budget').value;
+      const priority = document.getElementById('priority').value;
+      let recommendation = '';
+
+      // Simple decision logic
+      if (taskType === 'writing') {
+        if (budget === 'free') {
+          recommendation = priority === 'accuracy' 
+            ? 'Grok 3 (free plan on grok.com or x.com) is great for accurate writing tasks.'
+            : 'ChatGPT (free tier) offers fast and user-friendly writing support.';
+        } else {
+          recommendation = priority === 'accuracy' 
+            ? 'Claude 3.5 (paid) excels in precise writing tasks.'
+            : 'Grok 3 (SuperGrok plan) provides fast and easy writing tools.';
+        }
+      } else if (taskType === 'coding') {
+        if (budget === 'free') {
+          recommendation = priority === 'accuracy' 
+            ? 'Grok 3 (free plan) is reliable for coding tasks.'
+            : 'Replit with built-in AI (free tier) is fast and easy for coding.';
+        } else {
+          recommendation = priority === 'accuracy' 
+            ? 'GitHub Copilot (paid) is top-tier for accurate coding.'
+            : 'Grok 3 (API access via x.ai/api) offers fast coding support.';
+        }
+      } else if (taskType === 'research') {
+        if (budget === 'free') {
+          recommendation = priority === 'accuracy' 
+            ? 'Grok 3 (free plan with DeepSearch) is excellent for research.'
+            : 'Perplexity AI (free tier) provides quick research summaries.';
+        } else {
+          recommendation = priority === 'accuracy' 
+            ? 'Claude 3.5 (paid) is ideal for in-depth research.'
+            : 'Grok 3 (SuperGrok) offers fast research capabilities.';
+        }
+      } else if (taskType === 'creative') {
+        if (budget === 'free') {
+          recommendation = priority === 'accuracy' 
+            ? 'Grok 3 (free plan) handles creative tasks well.'
+            : 'ChatGPT (free tier) is great for quick creative prompts.';
+        } else {
+          recommendation = priority === 'accuracy' 
+            ? 'Claude 3.5 (paid) excels in creative writing.'
+            : 'Grok 3 (SuperGrok) is user-friendly for creative tasks.';
+        }
+      }
+
+      document.getElementById('recommendationText').innerText = recommendation;
+      document.getElementById('result').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
